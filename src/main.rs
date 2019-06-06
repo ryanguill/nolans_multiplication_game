@@ -10,7 +10,7 @@ fn main() {
 
     let target_correct_answers = 10;
     let mut correct_answers = 0;
-    let mut to_review:Vec<String> = [].to_vec();
+    let mut to_review: Vec<String> = [].to_vec();
 
     println!(
         "\nLets practice until you get {} correct answers",
@@ -23,10 +23,24 @@ fn main() {
         if correct_answers >= target_correct_answers {
             let wrong_answers = to_review.len();
             println!("you win! great maths skills!");
-            println!(
-                "you answered {} correctly and only answered {} wrong! {}",
-                correct_answers, wrong_answers, if (wrong_answers as f32 / correct_answers as f32) < 0.5 { generate_random_goodjob() } else { "" }
-            );
+            if wrong_answers > 0 {
+                println!(
+                    "you answered {} correctly and only answered {} wrong! {}",
+                    correct_answers,
+                    wrong_answers,
+                    if (wrong_answers as f32 / correct_answers as f32) < 0.5 {
+                        generate_random_goodjob()
+                    } else {
+                        ""
+                    }
+                );
+            } else {
+                println!(
+                    "You answered all {} correctly! {}",
+                    correct_answers,
+                    generate_random_goodjob()
+                );
+            }
 
             if wrong_answers > 0 {
                 println!("\nLets review these:");
@@ -53,7 +67,12 @@ fn main() {
 
         loop {
             println!("\n");
-            println!("#{}:   what is {} x️ {} ?", correct_answers + 1, multiplicand, multiplier);
+            println!(
+                "#{}:   what is {} x️ {} ?",
+                correct_answers + 1,
+                multiplicand,
+                multiplier
+            );
             println!("------------------------------------------");
 
             let guess = loop {
