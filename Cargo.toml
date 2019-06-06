@@ -1,0 +1,7 @@
+[package]
+name = "nolans_multiplication_game"
+version = "0.1.0"
+authors = ["Ryan Guill <ryanguill@gmail.com>"]
+edition = "2018"
+
+[dependencies]
