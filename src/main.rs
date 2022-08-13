@@ -61,17 +61,36 @@ fn main() {
             );
         }
 
-        let multiplicand = rand::thread_rng().gen_range(0, max_tables);
-        let multiplier = rand::thread_rng().gen_range(0, max_tables);
-        let answer = multiplicand * multiplier;
+        enum _Operations {
+            Addition,
+            Subtraction,
+            Multiplication,
+            Division,
+        }
+
+        let number_a = rand::thread_rng().gen_range(0, max_tables);
+        let number_b = rand::thread_rng().gen_range(0, max_tables);
+        //let answer = number_a * number_b;
 
         loop {
+            //let random_operation = rand::thread_rng().choose(&["Addition", "Subtraction", "Multiplication", "Division"]);
+            let random_operation = "Multiplication";
+
+            let (operation_display, answer) = match random_operation {
+                "Addition" => ("+", number_a + number_b),
+                "Subtraction" => ("-", number_a - number_b),
+                "Multiplication" => ("*", number_a * number_b),
+                "Division" => ("/", number_a / number_b),
+                _ => ("", 0),
+            };
+
             println!("\n");
             println!(
-                "#{}:   what is {} x️ {} ?",
+                "#{}:   what is {} {} {} ?",
                 correct_answers + 1,
-                multiplicand,
-                multiplier
+                number_a,
+                operation_display,
+                number_b
             );
             println!("------------------------------------------");
 
@@ -96,25 +115,25 @@ fn main() {
 
             match guess.cmp(&answer) {
                 Ordering::Equal => {
-                    println!("Correct! {} x️ {} = {}", multiplicand, multiplier, answer);
+                    println!("Correct! {} x️ {} = {}", number_a, number_b, answer);
                     correct_answers += 1;
                     break;
                 }
                 _ => {
                     println!("sorry, that answer isn't correct. Try again.");
-                    if multiplier == 1 || multiplicand == 1 {
+                    if number_b == 1 || number_a == 1 {
                         println!("remember, anything times 1 equals that number...");
-                    } else if multiplicand == 0 || multiplier == 0 {
+                    } else if number_a == 0 || number_b == 0 {
                         println!("remember, anything times 0 is 0...");
-                    } else if multiplicand == 2 || multiplier == 2 {
+                    } else if number_a == 2 || number_b == 2 {
                         println!("remember, anything times 2 must be an even number...");
-                    } else if multiplicand == 5 || multiplier == 5 {
+                    } else if number_a == 5 || number_b == 5 {
                         println!("remember, anything times 5 is going to end in a 5 or a 0...");
-                    } else if multiplicand == 10 || multiplier == 10 {
+                    } else if number_a == 10 || number_b == 10 {
                         println!("remember, anything times 10 will add a 0 to the right of that number...");
                     }
 
-                    to_review.push(format!("{} x {} = {}", multiplicand, multiplier, answer));
+                    to_review.push(format!("{} x {} = {}", number_a, number_b, answer));
                     continue;
                 }
             }
